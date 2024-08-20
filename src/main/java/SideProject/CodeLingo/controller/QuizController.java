@@ -28,6 +28,22 @@ public class QuizController {
         return "hello";
     }
 
+    @GetMapping("create-test-quiz")
+    public String testQuiz(Model model) {
+        Quiz testQuiz = new Quiz();
+        List<String> testExp = List.of("a","b","c","d");
+
+        testQuiz.setQuizLanguage("java");
+        testQuiz.setQuizLevel(3L);
+        testQuiz.setScript("테스트 문제입니다.");
+        testQuiz.setExamples(testExp);
+
+        quizService.createQuiz(testQuiz);
+
+        return "Test quiz created!";
+    }
+
+
     @GetMapping("print-quiz-by-id")
     @ResponseBody
     public String printQuizById (@RequestParam ("quizId") Long quizId) {
@@ -35,15 +51,19 @@ public class QuizController {
 
         Quiz testQuiz = new Quiz();
         List<String> testExp = List.of("a","b","c","d");
+
         testQuiz.setQuizLanguage("java");
         testQuiz.setQuizLevel(3L);
         testQuiz.setScript("테스트 문제입니다.");
         testQuiz.setExamples(testExp);
 
         quizService.createQuiz(testQuiz);
+
         Quiz quiz = quizService.findOneByQuizId(quizId);
 
-        printFormat = (quiz.getQuizId() +"번 문제\n" + "Q. " + quiz.getScript() + "\n\n 보기:" + quiz.getExamples());
+        printFormat = (quiz.getQuizId() +"번 문제" + System.lineSeparator()
+                + "Q. " + quiz.getScript() + System.lineSeparator()
+                + "보기:" + quiz.getExamples());
 
         return printFormat;
     }
