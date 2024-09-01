@@ -10,7 +10,6 @@ public class User {
     public Long userId;
     public String userName;
     public String userEmail;
-
     /**
      * quizScore
      * < [java, spring, python, ], < [0,1,2,... (quizLevel) ], score> >
@@ -48,7 +47,4 @@ public class User {
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
-
-
-
 }

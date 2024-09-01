@@ -2,7 +2,7 @@ package SideProject.CodeLingo.domain;
 
 import java.util.List;
 
-public class QuizBlockRelocation extends Quiz {
+public class Quiz_BlockRelocation extends Quiz {
     public List<String> getBlockContent() {
         return blockContent;
     }

@@ -1,6 +1,6 @@
 package SideProject.CodeLingo.domain;
 
-public class QuizSingle extends Quiz {
+public class Quiz_Single extends Quiz {
     public String answer;
 
     public String getAnswer() {
