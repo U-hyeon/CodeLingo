@@ -24,12 +24,12 @@ public class MemoryQuizRepository implements QuizRepository {
     }
 
     @Override
-    public Optional<Quiz> findByLanguage(String language) {
+    public Optional<List<Quiz>> findByLanguage(String language) {
         return Optional.empty();
     }
 
     @Override
-    public Optional<Quiz> findByLevel(String level) {
+    public Optional<List<Quiz>> findByLevel(Long level) {
         return Optional.empty();
     }
 
