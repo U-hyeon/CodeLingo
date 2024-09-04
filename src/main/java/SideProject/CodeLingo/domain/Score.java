@@ -1,9 +1,18 @@
 package SideProject.CodeLingo.domain;
 
 public class Score {
+    public Long scoreId;
     public Long userId;
     public Long quizId;
     public Long quizScore;
+
+    public Long getScoreId() {
+        return scoreId;
+    }
+
+    public void setScoreId(Long scoreId) {
+        this.scoreId = scoreId;
+    }
 
     public Long getUserId() {
         return userId;

@@ -25,7 +25,7 @@ public class MemoryScoreRepository implements ScoreRepository {
 
     /** userId, quizId, quizScore를 통한 점수 저장 */
     @Override
-    public Score save(Long userId, Long quizId, Long quizScore) {
+    public Score save(Long scoreId, Long userId, Long quizId, Long quizScore) {
 
         /**
          * 중복검사 후 중복시 덮어쓰기
@@ -33,6 +33,7 @@ public class MemoryScoreRepository implements ScoreRepository {
 
         Score score = new Score();
 
+        score.setScoreId(scoreId);
         score.setUserId(userId);
         score.setQuizId(quizId);
         score.setQuizScore(quizScore);

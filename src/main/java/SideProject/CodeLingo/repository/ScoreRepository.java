@@ -9,7 +9,7 @@ public interface ScoreRepository {
     /** Score 클래스를 통한 점수 저장 */
     Score save(Score score);
     /** userId, quizId, quizScore를 통한 점수 저장 */
-    Score save(Long userId, Long quizId, Long quizScore);
+    Score save(Long scoreId, Long userId, Long quizId, Long quizScore);
     Optional< List<Score> > findAllScoreOfUser(Long userId);
     Optional< List<Score> > findAllScoreOfQuiz(Long quizId);
 }
