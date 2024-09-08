@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface QuizRepository {
     Quiz save(Quiz quiz);
     Optional<Quiz> findByQuizId(Long quizId);
-    Optional<List<Quiz>> findByLanguage(String language);
+    Optional<List<Quiz>> findByCategory(String quizCategory);
     Optional<List<Quiz>> findByLevel(Long level);
     List<Quiz> findAll();
 }

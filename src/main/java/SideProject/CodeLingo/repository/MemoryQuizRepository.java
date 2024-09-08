@@ -24,7 +24,7 @@ public class MemoryQuizRepository implements QuizRepository {
     }
 
     @Override
-    public Optional<List<Quiz>> findByLanguage(String language) {
+    public Optional<List<Quiz>> findByCategory(String quizCategory) {
         return Optional.empty();
     }
 

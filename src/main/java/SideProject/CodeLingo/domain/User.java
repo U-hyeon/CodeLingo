@@ -10,11 +10,11 @@ public class User {
     public Long userId;
     public String userName;
     public String userEmail;
+    public Map<QuizRepository, Long> userQuizScore;
     /**
      * quizScore
      * < [java, spring, python, ], < [0,1,2,... (quizLevel) ], score> >
      */
-    public Map<QuizRepository, Long> userQuizScore;
 
     public Map<QuizRepository, Long> getUserQuizScore() {
         return userQuizScore;

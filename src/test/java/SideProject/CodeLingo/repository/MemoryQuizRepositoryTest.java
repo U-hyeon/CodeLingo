@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class MemoryQuizRepositoryTest {
     MemoryQuizRepository repository = new MemoryQuizRepository();
@@ -29,7 +28,7 @@ public class MemoryQuizRepositoryTest {
         };
 
         quiz.setScript("This is JAVA test quiz.");
-        quiz.setQuizLanguage("JAVA");
+        quiz.setQuizCategory("JAVA");
         quiz.setQuizLevel(3L);
         quiz.setExamples(examples);
 
@@ -45,7 +44,7 @@ public class MemoryQuizRepositoryTest {
     }
 
     @Test
-    public void findByLanguage() {
+    public void findByCategory() {
 
     }
 

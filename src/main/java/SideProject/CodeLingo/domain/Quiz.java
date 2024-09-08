@@ -5,14 +5,15 @@ import java.util.List;
 public class Quiz {
 
     public Long quizId;
-    public String quizLanguage;
+    public String quizCategory;
     public Long quizLevel;
     public String script;
+    public String quizImgUrl;
     public List<String> examples;
 //
-//    public Quiz(Long quizId, String quizLanguage, Long quizLevel, String script, List<String> examples) {
+//    public Quiz(Long quizId, String quizCategory, Long quizLevel, String script, List<String> examples) {
 //        this.quizId = quizId;
-//        this.quizLanguage = quizLanguage;
+//        this.quizCategory = quizCategory;
 //        this.quizLevel = quizLevel;
 //        this.script = script;
 //        this.examples = examples;
@@ -43,12 +44,20 @@ public class Quiz {
         this.quizId = quizId;
     }
 
-    public String getQuizLanguage() {
-        return quizLanguage;
+    public String getQuizCategory() {
+        return quizCategory;
     }
 
-    public void setQuizLanguage(String quizLanguage) {
-        this.quizLanguage = quizLanguage;
+    public void setQuizCategory(String quizCategory) {
+        this.quizCategory = quizCategory;
+    }
+
+    public String getQuizImgUrl() {
+        return quizImgUrl;
+    }
+
+    public void setQuizImgUrl(String quizImgUrl) {
+        this.quizImgUrl = quizImgUrl;
     }
 
     public Long getQuizLevel() {

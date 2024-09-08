@@ -33,7 +33,7 @@ public class QuizController {
         Quiz testQuiz = new Quiz();
         List<String> testExp = List.of("a","b","c","d");
 
-        testQuiz.setQuizLanguage("java");
+        testQuiz.setQuizCategory("java");
         testQuiz.setQuizLevel(3L);
         testQuiz.setScript("테스트 문제입니다.");
         testQuiz.setExamples(testExp);
@@ -52,7 +52,7 @@ public class QuizController {
         Quiz testQuiz = new Quiz();
         List<String> testExp = List.of("a","b","c","d");
 
-        testQuiz.setQuizLanguage("java");
+        testQuiz.setQuizCategory("java");
         testQuiz.setQuizLevel(3L);
         testQuiz.setScript("테스트 문제입니다.");
         testQuiz.setExamples(testExp);

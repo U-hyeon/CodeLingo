@@ -10,6 +10,7 @@ import java.util.Optional;
 public class MemoryScoreRepository implements ScoreRepository {
 
     private static List<Score> scoreRepository;
+    private static long sequence = 0L;
 
     /** Score 클래스를 통한 점수 저장 */
     @Override
