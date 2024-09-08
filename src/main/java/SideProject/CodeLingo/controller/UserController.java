@@ -1,44 +1,40 @@
 package SideProject.CodeLingo.controller;
 
-import SideProject.CodeLingo.controller.QuizController;
 import SideProject.CodeLingo.domain.User;
 import SideProject.CodeLingo.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.List;
 
 @RestController
 public class UserController {
-    private final QuizController quizController;
-
-    @Autowired
-    public UserController (QuizController quizController) {
-        this.quizController = quizController;
-    }
-
-    private UserMapper mapper;
+    private UserMapper userMapper;
 
     // private final Map<quizController.quizService.quizRepository, Long>;
-
-    @PutMapping("/user/{userId}")
-    public void putUserProfile(@PathVariable("userId") Long userId, @RequestParam("userName") String userName, @RequestParam("userEmail") String userEmail) {
-        mapper.insertUserProfile(userId, userName, userEmail);
+/** GET */
+    @GetMapping("/users")
+    public User getUserProfile(@RequestParam("userId") Long userId) {
+        return userMapper.getUserProfile(userId);
     }
-
-    @GetMapping("/user/{userId}")
-    public User GetUserProfile(@PathVariable("userId") Long userId) {
-        return mapper.getUserProfile(userId);
+    @GetMapping("/users/all")
+    public List<User> getAllUserProfile() {
+        return userMapper.getAllUserProfile();
     }
-
-    @PostMapping("/user/{userId}")
-    public void PostUserProfile(@PathVariable("userId") Long userId, @RequestParam("userName") String userName, @RequestParam("userEmail") String userEmail) {
-        mapper.updateUserProfile(userId, userName, userEmail);
+/** PUT */
+    @PutMapping("/users")
+    public void putUserProfile(@RequestParam("userId") Long userId, @RequestParam("userName") String userName, @RequestParam("userEmail") String userEmail) {
+        userMapper.insertUserProfile(userId, userName, userEmail);
     }
-
-    @DeleteMapping("/user/{userId}")
-    public void PostUserProfile(@PathVariable("userId") Long userId) {
-        mapper.deleteUserProfile(userId);
+/** POST */
+    @PostMapping("/users")
+    public void postUserProfile(@RequestParam("userId") Long userId, @RequestParam("userName") String userName, @RequestParam("userEmail") String userEmail) {
+        userMapper.updateUserProfile(userId, userName, userEmail);
+    }
+/** DELETE */
+    @DeleteMapping("/users")
+    public void postUserProfile(@RequestParam("userId") Long userId) {
+        userMapper.deleteUserProfile(userId);
     }
 
 }

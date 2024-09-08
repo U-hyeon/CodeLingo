@@ -15,28 +15,50 @@ import java.util.List;
 @RestController
 public class QuizController {
     private QuizMapper quizMapper;
-
-    @GetMapping("/quiz/{quizId}")
-    public Quiz getQuizInfo(@PathVariable("quizId") Long quizId) {
+/** GET */
+/** GET QUIZ INFO */
+    @GetMapping("/quizzes")
+    public Quiz getQuizInfo(@RequestParam("quizId") Long quizId) {
         Quiz quiz = quizMapper.getOneQuiz(quizId);
         return  quiz;
     }
+    @GetMapping("/quizzes/all/categories")
+    public List<Quiz> getAllQuiz_category(@RequestParam("quizCategory") String quizCategory) {
+        return quizMapper.getAllQuiz_category(quizCategory);
+    }
+    @GetMapping("/quizzes/all/categories-levels")
+    public List<Quiz> getAllQuiz_level(
+            @RequestParam("quizCategory") String quizCategory,
+            @RequestParam("quizLevel") Long quizLevel
+    ) {
+        return quizMapper.getAllQuiz_level(quizCategory, quizLevel);
+    }
+/** GET QUIZ DATA */
+    @GetMapping("/quizzes/categories")
+    public List<String> getAllCategory() {
+        return quizMapper.getAllCategory();
+    }
+    @GetMapping("/quizzes/categories/levels")
+    public List<Long> getAllLevel_category(@RequestParam("quizCategory") String quizCategory) {
+        return quizMapper.getAllLevel_category(quizCategory);
+    }
 
-    @PutMapping("/quiz/{quizId}")
+/** PUT */
+    @PutMapping("/quizzes")
     public void putNewQuiz(
-            @PathVariable("quizId") Long quizId,
+            @RequestParam("quizId") Long quizId,
             @RequestParam("quizCategory") String quizCategory,
             @RequestParam("quizLevel") Long quizLevel,
             @RequestParam("quizScript") String quizScript,
             @RequestParam("quizImgUrl") String quizImgUrl,
             @RequestParam("quizExamples") List<String> quizExamples
-            ) {
+    ) {
         quizMapper.insertQuiz(quizId, quizCategory, quizLevel, quizScript, quizImgUrl, quizExamples);
     }
-
-    @PostMapping("/quiz/{quizId}")
+/** POST */
+    @PostMapping("/quizzes")
     public void postQuiz(
-            @PathVariable("quizId") Long quizId,
+            @RequestParam("quizId") Long quizId,
             @RequestParam("quizCategory") String quizCategory,
             @RequestParam("quizLevel") Long quizLevel,
             @RequestParam("quizScript") String quizScript,
@@ -45,9 +67,9 @@ public class QuizController {
     ) {
         quizMapper.updateQuiz(quizId, quizCategory, quizLevel, quizScript, quizImgUrl, quizExamples);
     }
-
-    @DeleteMapping("/quiz/{quizId}")
-    public void deleteQuiz(@PathVariable("quizId") Long quizId) {
+/** DELETE */
+    @DeleteMapping("/quizzes")
+    public void deleteQuiz(@RequestParam("quizId") Long quizId) {
         quizMapper.deleteOneQuiz(quizId);
     }
 }

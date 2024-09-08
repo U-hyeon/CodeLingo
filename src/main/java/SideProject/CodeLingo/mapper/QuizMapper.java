@@ -19,14 +19,19 @@ public interface QuizMapper {
     Quiz_SingleAnswer getOneQuiz_detail_singleAnswer(@Param("quizId") Long quizId);
 /** -SELECT LIST */
     @Select("SELECT * FROM QUIZ_TABLE WHERE QUIZ_CATEGORY IS #{quizCategory}")
-    List<Quiz> getAllQuiz_category(@Param("quizCategory") Long quizCategory);
+    List<Quiz> getAllQuiz_category(@Param("quizCategory") String quizCategory);
     @Select("SELECT * FROM QUIZ_TABLE " +
             "WHERE QUIZ_CATEGORY IS #{quizCategory} " +
             "AND QUIZ_LEVEL IS #{quizLevel}")
     List<Quiz> getAllQuiz_level(
-            @Param("quizCategory") Long quizCategory,
+            @Param("quizCategory") String quizCategory,
             @Param("quizLevel") Long quizLevel
     );
+/** SELECT DISTINCT */
+    @Select("SELECT DISTINCT QUIZ_CATEGORY FROM QUIZ_TABLE")
+    List<String> getAllCategory();
+    @Select("SELECT DISTINCT QUIZ_LEVEL FROM QUIZ_TABLE WHERE QUIZ_CATEGORY IS #{quizCategory}")
+    List<Long> getAllLevel_category(@Param("quizCategory") String quizCategory);
 
 /** INSERT */
     @Insert("INSERT INTO QUIZ_TABLE " +

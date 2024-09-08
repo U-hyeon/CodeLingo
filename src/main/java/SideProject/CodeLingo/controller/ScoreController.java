@@ -4,72 +4,61 @@ import SideProject.CodeLingo.domain.Score;
 import SideProject.CodeLingo.mapper.ScoreMapper;
 import SideProject.CodeLingo.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class ScoreController {
-    private final ScoreService scoreService;
-
-    @Autowired
-    public ScoreController(ScoreService scoreService) {
-        this.scoreService = scoreService;
-    }
-
-
-    private ScoreMapper mapper;
-
-
-    @GetMapping("/score")
+    private ScoreMapper scoreMapper;
+/** GET */
+    @GetMapping("/scores")
     public Long getScoreOne(
             @RequestParam("userId") Long userId,
             @RequestParam("quizId") Long quizId
     ) {
-        return mapper.getQuizScore(userId, quizId);
+        return scoreMapper.getQuizScore(userId, quizId);
     }
-
-    @GetMapping("/score/user/{userId}")
-    public List<Score> getAllScoreOfUser (
-            @PathVariable("userId") Long userId
-    ) {
-        return mapper.getAllScores_ofUser(userId);
-    }
-
-    @GetMapping("/score/quiz/{quizId}")
-    public List<Score> getAllScoreOfQuiz (
-            @PathVariable("quizId") Long quizId
-    ) {
-        return mapper.getAllScores_ofQuiz(quizId);
-    }
-
-    @GetMapping("/score")
+    @GetMapping("/scores/all/users")
     public List<Score> getAllScoreOfUser(
             @RequestParam("userId") Long userId,
             @RequestParam("quizCategory") String quizCategory,
             @RequestParam("quizLevel") Long quizLevel
     ) {
-        return mapper.getAllScores_ofUser(userId);
+        return scoreMapper.getAllScores_user(userId);
     }
-
-    @PutMapping("/score/{scoreId}")
+    @GetMapping("/scores/all/quizzes")
+    public List<Score> getAllScoreOfQuiz (
+            @RequestParam("quizId") Long quizId
+    ) {
+        return scoreMapper.getAllScores_quiz(quizId);
+    }
+/** PUT */
+    @PutMapping("/scores")
     public void putScore(
-            @PathVariable("scoreId") Long scoreId,
+            @RequestParam("scoreId") Long scoreId,
             @RequestParam("userId") Long userId,
             @RequestParam("quizId") Long quizId,
             @RequestParam("quizScore") Long quizScore
             ) {
-        mapper.insertQuizScore(scoreId, userId, quizId, quizScore);
+        scoreMapper.insertQuizScore(scoreId, userId, quizId, quizScore);
     }
-
-    @PostMapping("/score")
+/** POST */
+    @PostMapping("/scores")
     public void postScore(
             @RequestParam("userId") Long userId,
             @RequestParam("quizId") Long quizId,
             @RequestParam("quizScore") Long quizScore
             ) {
-        mapper.updateQuizScore(userId, quizId, quizScore);
+        scoreMapper.updateQuizScore(userId, quizId, quizScore);
+    }
+/** DELETE */
+    @DeleteMapping("/scores/users")
+    public void deleteALLScore_user(@RequestParam("userId") Long userId) {
+        scoreMapper.deleteAllScores_user(userId);
+    }
+    @DeleteMapping("/scores/quizzes")
+    public void deleteAllScore_quiz(@RequestParam("quizId") Long quizId) {
+        scoreMapper.deleteAllScores_quiz(quizId);
     }
 }
