@@ -1,18 +1,25 @@
 package SideProject.CodeLingo.mapper;
 
 import SideProject.CodeLingo.domain.Quiz;
+import SideProject.CodeLingo.domain.Quiz_BlockRelocation;
+import SideProject.CodeLingo.domain.Quiz_SingleAnswer;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
 @Mapper
 public interface QuizMapper {
+/** SELECT */
+/** -SELECT ONE */
     @Select("SELECT * FROM QUIZ_TABLE WHERE QUIZ_ID IS #{quizId}")
     Quiz getOneQuiz(@Param("quizId") Long quizId);
-
+    @Select("SELECT * FROM QUIZ_DETAIL_BLOCK_RELOCATION_TABLE WHERE QUIZ_ID IS #{quizId}")
+    Quiz_BlockRelocation getOneQuiz_detail_blockRelocation(@Param("quizId") Long quizId);
+    @Select("SELECT * FROM QUIZ_DETAIL_SINGLE_ANSWER_TABLE WHERE QUIZ_ID IS #{quizId}")
+    Quiz_SingleAnswer getOneQuiz_detail_singleAnswer(@Param("quizId") Long quizId);
+/** -SELECT LIST */
     @Select("SELECT * FROM QUIZ_TABLE WHERE QUIZ_CATEGORY IS #{quizCategory}")
     List<Quiz> getAllQuiz_category(@Param("quizCategory") Long quizCategory);
-
     @Select("SELECT * FROM QUIZ_TABLE " +
             "WHERE QUIZ_CATEGORY IS #{quizCategory} " +
             "AND QUIZ_LEVEL IS #{quizLevel}")
@@ -21,6 +28,7 @@ public interface QuizMapper {
             @Param("quizLevel") Long quizLevel
     );
 
+/** INSERT */
     @Insert("INSERT INTO QUIZ_TABLE " +
             "VALUES(" +
             "#{quizId}, #{quizCategory}, #{quizLevel}, " +
@@ -31,90 +39,107 @@ public interface QuizMapper {
             @Param("quizCategory") String quizCategory,
             @Param("quizLevel") Long quizLevel,
             @Param("quizScript") String quizScript,
+            @Param("quizImgUrl") String quizImgUrl,
             @Param("quizExamples") List<String> quizExamples
     );
-
-    @Insert("INSERT INTO QUIZ_BLOCK_RELOCATION_DETAIL_TABLE" +
+    @Insert("INSERT INTO QUIZ_DETAIL_BLOCK_RELOCATION_TABLE" +
             "VALUES( #{quizId}, #{blockContent}, #{blockAnswer} )")
     int insertQuizDetail_blockRelocation(
             @Param("quizId") Long quizId,
             @Param("blockContent") List<String> blockContent,
             @Param("blockAnswer") List<String> blockAnswer
     );
-
-    @Insert("INSERT INTO QUIZ_SINGLE_ANSWER_TABLE" +
+    @Insert("INSERT INTO QUIZ_DETAIL_SINGLE_ANSWER_TABLE" +
             "VALUES( #{quizId}, #{answer} )")
-    int insertQuizDetail_single(@Param("quizId") Long quizId, @Param("answer") String answer);
+    int insertQuizDetail_singleAnswer(@Param("quizId") Long quizId, @Param("answer") String answer);
 
+/** UPDATE */
     @Update("UPDATE QUIZ_TABLE" +
             "SET " +
+            "QUIZ_CATEGORY=#{quizCategory}, " +
+            "QUIZ_LEVEL=#{quizLevel}, " +
+            "QUIZ_SCRIPT=#{quizScript}, " +
+            "QUIZ_IMG_URL=#{quizImgUrl}, " +
+            "QUIZ_EXAMPLES=#{quizExamples}" +
             "WHERE QUIZ_ID IS #{quizId}")
-    int updateQuiz();
-
-    @Update("UPDATE QUIZ_BLOCK_RELOCATION_DETAIL_TABLE" +
+    int updateQuiz(
+            @Param("quizId") Long quizId,
+            @Param("quizCategory") String quizCategory,
+            @Param("quizLevel") Long quizLevel,
+            @Param("quizScript") String quizScript,
+            @Param("quizImgUrl") String quizImgUrl,
+            @Param("quizExamples") List<String> quizExamples
+    );
+    @Update("UPDATE QUIZ_DETAIL_BLOCK_RELOCATION_TABLE" +
             "SET" +
+            "QUIZ_BLOCK_CONTENT=#{quizBlockContent}, " +
+            "QUIZ_BLOCK_ANSWER=#{quizBlockAnswer}" +
             "WHERE QUIZ_ID IS #{quizId}")
-    int updateQuizDetail_blockRelocation();
-
-    @Update("UPDATE QUIZ_SINGLE_ANSWER_TABLE" +
-            "SET" +
+    int updateQuiz_detail_blockRelocation(
+            @Param("quizId") Long quizId,
+            @Param("quizBlockContent") List<String> quizBlockContent,
+            @Param("quizBlockAnswer") List<String> quizBlockAnswer
+    );
+    @Update("UPDATE QUIZ_DETAIL_SINGLE_ANSWER_TABLE" +
+            "SET QUIZ_ANSWER=#{quizAnswer}" +
             "WHERE QUIZ_ID IS #{quizId}")
-    int updateQuizDetail_singleAnswer();
+    int updateQuiz_detail_singleAnswer(
+            @Param("quizId") Long quizId,
+            @Param("quizAnswer") Long quizAnswer
+    );
 
-    /** DELETE FROM QUIZ_TABLE */
+/** DELETE */
+/** DELETE FROM QUIZ_TABLE */
     @Delete("DELETE FROM QUIZ_TABLE WHERE QUIZ_ID IS #{quizId}")
     int deleteOneQuiz(@Param("quizId") Long quizId);
 
     @Delete("DELETE FROM QUIZ_TABLE WHERE QUIZ_CATEGORY IS #{quizCategory}")
-    int deleteAllQuiz_category();
+    int deleteAllQuiz_category(@Param("quizCategory") String quizCategory);
 
     @Delete("DELETE FROM QUIZ_TABLE " +
             "WHERE QUIZ_CATEGORY IS #{quizCategory} " +
             "AND QUIZ_LEVEL IS #{quizLevel}")
-    int deleteAllQuiz_level();
-
-    /** DELETE FROM QUIZ_BLOCK_RELOCATION_TABLE */
-    @Delete("DELETE FROM QUIZ_BLOCK_RELOCATION_DETAIL_TABLE WHERE QUIZ_ID IS #{quizId}")
-    int deleteOneQuiz_blockRelocation(@Param("quizId") Long quizId);
-
-    @Delete("DELETE FROM QUIZ_BLOCK_RELOCATION_DETAIL_TABLE " +
-            "WHERE (SELECT QUIZ_CATEGORY FROM QUIZ_TABLE WHERE QUIZ_ID IS #{quizId}) " +
-            "IS #{quizCategory}")
-    int deleteALLQuiz_category_blockRelocation(
-            @Param("quizId") Long quizId,
-            @Param("quizCategory") String quizCategory
-    );
-
-    @Delete("DELETE FROM QUIZ_BLOCK_RELOCATION_DETAIL_TABLE " +
-            "WHERE (SELECT QUIZ_CATEGORY FROM QUIZ_TABLE WHERE QUIZ_ID IS #{quizId}) " +
-            "IS #{quizCategory} " +
-            "AND (SELECT QUIZ_LEVEL FROM QUIZ_TABLE WHERE QUIZ_ID IS #{quizId}) " +
-            "IS #{quizLevel}")
-    int deleteALLQuiz_level_blockRelocation(
-            @Param("quizId") Long quizId,
+    int deleteAllQuiz_level(
             @Param("quizCategory") String quizCategory,
             @Param("quizLevel") Long quizLevel
     );
 
-    /** DELETE FROM QUIZ_SINGLE_ANSWER_TABLE */
-    @Delete("DELETE FROM QUIZ_SINGLE_ANSWER_TABLE WHERE QUIZ_ID IS #{quizId}")
-    int deleteOneQuiz_singleAnswer(@Param("quizId") Long quizId);
+/** DELETE FROM QUIZ_BLOCK_RELOCATION_TABLE */
+    @Delete("DELETE FROM QUIZ_DETAIL_BLOCK_RELOCATION_TABLE WHERE QUIZ_ID IS #{quizId}")
+    int deleteOneQuiz_blockRelocation(@Param("quizId") Long quizId);
 
-    @Delete("DELETE FROM QUIZ_SINGLE_ANSWER_TABLE " +
-            "WHERE (SELECT QUIZ_CATEGORY FROM QUIZ_TABLE WHERE QUIZ_ID IS #{quizId}) " +
-            "IS #{quizCategory}")
-    int deleteALLQuiz_category_singleAnswer(
-            @Param("quizId") Long quizId,
+    @Delete("DELETE FROM QUIZ_DETAIL_BLOCK_RELOCATION_TABLE " +
+            "WHERE QUIZ_ID IN " +
+            "( SELECT QUIZ_ID FROM QUIZ_TABLE WHERE QUIZ_CATEGORY IS #{quizCategory} )")
+    int deleteALLQuiz_category_blockRelocation(
             @Param("quizCategory") String quizCategory
     );
 
-    @Delete("DELETE FROM QUIZ_SINGLE_ANSWER_TABLE " +
-            "WHERE (SELECT QUIZ_CATEGORY FROM QUIZ_TABLE WHERE QUIZ_ID IS #{quizId}) " +
-            "IS #{quizCategory} " +
-            "AND (SELECT QUIZ_LEVEL FROM QUIZ_TABLE WHERE QUIZ_ID IS #{quizId}) " +
-            "IS #{quizLevel}")
+    @Delete("DELETE FROM QUIZ_DETAIL_BLOCK_RELOCATION_TABLE " +
+            "WHERE QUIZ_ID IN" +
+            "( SELECT QUIZ_ID FROM QUIZ_TABLE WHERE QUIZ_CATEGORY IS #{quizCategory} " +
+            "AND QUIZ_LEVEL IS #{quizLevel} )")
+    int deleteALLQuiz_level_blockRelocation(
+            @Param("quizCategory") String quizCategory,
+            @Param("quizLevel") Long quizLevel
+    );
+
+/** DELETE FROM QUIZ_DETAIL_SINGLE_ANSWER_TABLE */
+    @Delete("DELETE FROM QUIZ_DETAIL_SINGLE_ANSWER_TABLE WHERE QUIZ_ID IS #{quizId}")
+    int deleteOneQuiz_singleAnswer(@Param("quizId") Long quizId);
+
+    @Delete("DELETE FROM QUIZ_DETAIL_SINGLE_ANSWER_TABLE " +
+            "WHERE QUIZ_ID IN" +
+            "( SELECT QUIZ_ID FROM QUIZ_TABLE WHERE QUIZ_CATEGORY IS #{quizCategory} )")
+    int deleteALLQuiz_category_singleAnswer(
+            @Param("quizCategory") String quizCategory
+    );
+
+    @Delete("DELETE FROM QUIZ_DETAIL_SINGLE_ANSWER_TABLE " +
+            "WHERE QUIZ_ID IN" +
+            "( SELECT QUIZ_ID FROM QUIZ_TABLE WHERE QUIZ_CATEGORY IS #{quizCategory} " +
+            "AND QUIZ_LEVEL IS #{quizLevel} )")
     int deleteALLQuiz_level_singleAnswer(
-            @Param("quizId") Long quizId,
             @Param("quizCategory") String quizCategory,
             @Param("quizLevel") Long quizLevel
     );

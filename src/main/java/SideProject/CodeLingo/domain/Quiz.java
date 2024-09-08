@@ -7,32 +7,32 @@ public class Quiz {
     public Long quizId;
     public String quizCategory;
     public Long quizLevel;
-    public String script;
+    public String quizScript;
     public String quizImgUrl;
-    public List<String> examples;
+    public List<String> quizExamples;
 //
-//    public Quiz(Long quizId, String quizCategory, Long quizLevel, String script, List<String> examples) {
+//    public Quiz(Long quizId, String quizCategory, Long quizLevel, String quizScript, List<String> quizExamples) {
 //        this.quizId = quizId;
 //        this.quizCategory = quizCategory;
 //        this.quizLevel = quizLevel;
-//        this.script = script;
-//        this.examples = examples;
+//        this.quizScript = quizScript;
+//        this.quizExamples = quizExamples;
 //    }
 
-    public List<String> getExamples() {
-        return examples;
+    public List<String> getQuizExamples() {
+        return quizExamples;
     }
 
-    public void setExamples(List<String> examples) {
-        this.examples = examples;
+    public void setQuizExamples(List<String> quizExamples) {
+        this.quizExamples = quizExamples;
     }
 
-    public String getScript() {
-        return script;
+    public String getQuizScript() {
+        return quizScript;
     }
 
-    public void setScript(String script) {
-        this.script = script;
+    public void setQuizScript(String quizScript) {
+        this.quizScript = quizScript;
     }
 
 

@@ -19,7 +19,7 @@ public class MemoryQuizRepositoryTest {
     @Test
     public void save() {
         Quiz quiz = new Quiz();
-        List<String> examples = new ArrayList<String>(){
+        List<String> quizExamples = new ArrayList<String>(){
             {
                 add("ex1");
                 add("ex2");
@@ -27,10 +27,10 @@ public class MemoryQuizRepositoryTest {
             }
         };
 
-        quiz.setScript("This is JAVA test quiz.");
+        quiz.setQuizScript("This is JAVA test quiz.");
         quiz.setQuizCategory("JAVA");
         quiz.setQuizLevel(3L);
-        quiz.setExamples(examples);
+        quiz.setQuizExamples(quizExamples);
 
         repository.save(quiz);
         Quiz result = repository.findByQuizId(quiz.getQuizId()).get();
@@ -51,12 +51,12 @@ public class MemoryQuizRepositoryTest {
 //    @Test
 //    public void findByLevel() {
 //        Quiz quiz1 = new Quiz();
-//        quiz1. setScript("This is spring quiz1.");
+//        quiz1. setQuizScript("This is spring quiz1.");
 //        quiz1.setQuizLevel(3L);
 //        repository.save(quiz1);
 //
 //        Quiz quiz2 = new Quiz();
-//        quiz2. setScript("This is spring quiz2.");
+//        quiz2. setQuizScript("This is spring quiz2.");
 //        quiz2.setQuizLevel(3L);
 //        repository.save(quiz2);
 //
@@ -68,11 +68,11 @@ public class MemoryQuizRepositoryTest {
     @Test
     public void findAll() {
         Quiz quiz1 = new Quiz();
-        quiz1. setScript("This is spring quiz1.");
+        quiz1.setQuizScript("This is spring quiz1.");
         repository.save(quiz1);
 
         Quiz quiz2 = new Quiz();
-        quiz2. setScript("This is spring quiz2.");
+        quiz2.setQuizScript("This is spring quiz2.");
         repository.save(quiz2);
 
         List<Quiz> result = repository.findAll();

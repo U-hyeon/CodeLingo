@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 public class ScoreController {
     private final ScoreService scoreService;
 
@@ -22,6 +22,38 @@ public class ScoreController {
 
     private ScoreMapper mapper;
 
+
+    @GetMapping("/score")
+    public Long getScoreOne(
+            @RequestParam("userId") Long userId,
+            @RequestParam("quizId") Long quizId
+    ) {
+        return mapper.getQuizScore(userId, quizId);
+    }
+
+    @GetMapping("/score/user/{userId}")
+    public List<Score> getAllScoreOfUser (
+            @PathVariable("userId") Long userId
+    ) {
+        return mapper.getAllScores_ofUser(userId);
+    }
+
+    @GetMapping("/score/quiz/{quizId}")
+    public List<Score> getAllScoreOfQuiz (
+            @PathVariable("quizId") Long quizId
+    ) {
+        return mapper.getAllScores_ofQuiz(quizId);
+    }
+
+    @GetMapping("/score")
+    public List<Score> getAllScoreOfUser(
+            @RequestParam("userId") Long userId,
+            @RequestParam("quizCategory") String quizCategory,
+            @RequestParam("quizLevel") Long quizLevel
+    ) {
+        return mapper.getAllScores_ofUser(userId);
+    }
+
     @PutMapping("/score/{scoreId}")
     public void putScore(
             @PathVariable("scoreId") Long scoreId,
@@ -29,49 +61,15 @@ public class ScoreController {
             @RequestParam("quizId") Long quizId,
             @RequestParam("quizScore") Long quizScore
             ) {
-        mapper.insertScore(scoreId, userId, quizId, quizScore);
+        mapper.insertQuizScore(scoreId, userId, quizId, quizScore);
     }
 
-    @PostMapping("/score/{scoreId}")
+    @PostMapping("/score")
     public void postScore(
-            @PathVariable("scoreId") Long scoreId,
             @RequestParam("userId") Long userId,
             @RequestParam("quizId") Long quizId,
             @RequestParam("quizScore") Long quizScore
             ) {
-        mapper.updateScore(scoreId, userId, quizId, quizScore);
+        mapper.updateQuizScore(userId, quizId, quizScore);
     }
-
-
-    @GetMapping("/score")
-    public Score getScoreOne(
-            @RequestParam("userId") Long userId,
-            @RequestParam("quizId") Long quizId
-            ) {
-        return mapper.getScoreOne(userId, quizId);
-    }
-
-    @GetMapping("/score/user/{userId}")
-    public Optional<List<Score>> getAllScoreOfUser (
-            @PathVariable("userId") Long userId
-            ) {
-        return mapper.getAllScoreOfUser(userId);
-    }
-
-    @GetMapping("/score/quiz/{quizId}")
-    public Optional<List<Score>> getAllScoreOfQuiz (
-            @PathVariable("quizId") Long quizId
-            ) {
-        return mapper.getAllScoreOfQuiz(quizId);
-    }
-
-    @GetMapping("/score")
-    public Optional<List<Score>> getUserScoreInLevel(
-            @RequestParam("userId") Long userId,
-            @RequestParam("quizCategory") String quizCategory,
-            @RequestParam("quizLevel") Long quizLevel
-            ) {
-        return mapper.getUserScoreInLevel(userId, quizCategory, quizLevel);
-    }
-
 }

@@ -3,7 +3,7 @@ package SideProject.CodeLingo.service;
 import SideProject.CodeLingo.domain.Quiz;
 
 import SideProject.CodeLingo.domain.Quiz_BlockRelocation;
-import SideProject.CodeLingo.domain.Quiz_Single;
+import SideProject.CodeLingo.domain.Quiz_SingleAnswer;
 import SideProject.CodeLingo.repository.QuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,10 +29,10 @@ public class QuizService {
     /**
      * quizSingle
      */
-    public void printQuiz(Quiz_Single quiz) {
+    public void printQuiz(Quiz_SingleAnswer quiz) {
 
     }
-    public void submitAnswer(Quiz_Single quiz) {
+    public void submitAnswer(Quiz_SingleAnswer quiz) {
 
     }
 
