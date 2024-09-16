@@ -18,6 +18,8 @@ public interface QuizMapper {
     @Select("SELECT * FROM QUIZ_DETAIL_SINGLE_ANSWER_TABLE WHERE QUIZ_ID IS #{quizId}")
     Quiz_SingleAnswer getOneQuiz_detail_singleAnswer(@Param("quizId") Long quizId);
 /** -SELECT LIST */
+    @Select("SELECT * FROM QUIZ_TABLE")
+    List<Quiz> getAllQuiz();
     @Select("SELECT * FROM QUIZ_TABLE WHERE QUIZ_CATEGORY IS #{quizCategory}")
     List<Quiz> getAllQuiz_category(@Param("quizCategory") String quizCategory);
     @Select("SELECT * FROM QUIZ_TABLE " +

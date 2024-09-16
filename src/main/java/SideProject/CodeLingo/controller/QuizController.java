@@ -22,6 +22,10 @@ public class QuizController {
         Quiz quiz = quizMapper.getOneQuiz(quizId);
         return  quiz;
     }
+    @GetMapping("/quizzes/all")
+    public List<Quiz> getAllQuiz() {
+        return quizMapper.getAllQuiz();
+    }
     @GetMapping("/quizzes/all/categories")
     public List<Quiz> getAllQuiz_category(@RequestParam("quizCategory") String quizCategory) {
         return quizMapper.getAllQuiz_category(quizCategory);
