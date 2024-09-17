@@ -36,12 +36,11 @@ public class ScoreController {
 /** PUT */
     @PutMapping("/scores")
     public void putScore(
-            @RequestParam("scoreId") Long scoreId,
             @RequestParam("userId") Long userId,
             @RequestParam("quizId") Long quizId,
             @RequestParam("quizScore") Long quizScore
             ) {
-        scoreMapper.insertQuizScore(scoreId, userId, quizId, quizScore);
+        scoreMapper.insertQuizScore(userId, quizId, quizScore);
     }
 /** POST */
     @PostMapping("/scores")

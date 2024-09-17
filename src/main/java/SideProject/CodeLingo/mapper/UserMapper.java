@@ -7,15 +7,15 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    @Select("SELECT * FROM USER_TABLE WHERE USER_ID is #{userId}")
+    @Select("SELECT * FROM USER WHERE USER_ID is #{userId}")
     User getUserProfile(
             @Param("userId") Long userId
     );
 
-    @Select("SELECT * FROM USER_TABLE")
+    @Select("SELECT * FROM USER")
     List<User> getAllUserProfile();
 
-    @Insert("INSERT INTO USER_TABLE VALUES(#{userId}, #{userName}, #{userEmail})")
+    @Insert("INSERT INTO USER VALUES(#{userId}, #{userName}, #{userEmail})")
     int insertUserProfile(
             @Param("userId") Long userId,
             @Param("userName") String userName,
